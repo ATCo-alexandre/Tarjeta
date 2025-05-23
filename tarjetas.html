@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/1_favicon.png" type="image/x-icon">
+    <title>Azul 91 - Tarjetas</title>
+
+    <!-- Fonte Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');      
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* ---------- Preloader Início ---------- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #08068B, #0D083A);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bars {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Fundo Externo às Barras */
+.background-outside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #08068B, #0D083A);
+    z-index: 1;
+    transition: opacity 2s ease-in-out;
+}
+
+/* Barras */
+.bar {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 2;
+    transition: transform 1s ease-out;
+    animation: slideBar 2s ease-in-out forwards;
+}
+
+.bar-left {
+    left: 0;
+    animation-delay: 0s;
+}
+
+.bar-right {
+    right: 0;
+    animation-delay: 0s;
+}
+
+@keyframes slideBar {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(var(--dir, 1) * 100%));
+    }
+}
+
+/* Direção das Barras */
+.bar-left {
+    --dir: -1;
+}
+
+.bar-right {
+    --dir: 1;
+}
+
+/* Texto com Efeito de Fumaça */
+.smoke-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    z-index: 1;
+    animation: revealText 3s ease-in-out 1s forwards;
+    filter: blur(6px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 25px rgba(255, 255, 255, 0.5);
+}
+
+.smoke-text p {
+    color: transparent;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    -webkit-text-stroke: 2px #0000FF;
+    background: url(img/3_efeito.png);
+    background-clip: text;
+    background-position: 0 0;
+    animation: back 30s linear infinite;
+}
+
+@keyframes back {
+    100% {
+        background-position: 2000px 0;
+    }
+}
+
+@keyframes revealText {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+        filter: blur(20px);
+        letter-spacing: -2px;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.5);
+        filter: blur(0);
+        letter-spacing: normal;
+    }
+}
+
+/* ---------- Preloader Fim ---------- */
+
+/* Body Início */
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/5_nomeTurma.png') no-repeat center center;
+    background-size: cover;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Body Fim */
+
+/* Header Início */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0.25rem 0;
+    background-color: transparent;
+}
+
+/* Logotipo Principal */
+.logo-principal img {
+    max-height: 120px;
+    margin-left: 15rem;
+}
+
+/* Menu de Navegação */
+.menu-navegacao {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-navegacao li {
+    list-style-type: none;
+    text-align: center;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-navegacao li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-navegacao li a i {
+    font-size: 1.5rem;
+    margin-bottom: 0.15rem;
+    color: #0000FF;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.menu-navegacao li:hover i,
+.menu-navegacao li:hover a {
+    color: #00BFFF;
+    transform: scale(1.1);
+}
+
+/* Ícone Bars */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    z-index: 1001;
+    top: 50%;
+    left: 50%;
+    font-size: 2rem;
+    color: #FFFFFF;
+    transform: translateX(-50%);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    right: 50%;
+    width: 30vw;
+    height: 40vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6));
+    transform: translateX(-50%);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu ul li {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+/* Botão Gerar Tarjeta dentro do Dropdown Menu Início */
+.dropdown-action-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin: 1rem auto 0;
+    background-color: #007bff;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Botão Gerar Tarjeta dentro do Dropdown Meu Fim */
+
+/* Botão Gerar Tarjeta dentro do Header Início */
+.botao-header button {
+    display: flex;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #0000FF;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 10rem;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.7rem;
+    box-shadow: 0 0 5px #FFFFFF, 0 0 10px #0000FF, 0 0 20px #0000CD;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    margin-right: 15rem;
+}
+
+.botao-header button:hover {
+    background: #FFFFFF;
+    color: #0000FF;
+    font-weight: 600;
+    transform: scale(1.05);
+}
+
+/* Botão Gerar Tarjeta dentro do Header Fim */
+
+/* Logotipo Secundário Início */
+.logo-secundario {
+    display: none;
+}
+
+.logo-secundario img {
+    display: none;
+    max-height: 80px;
+    animation: blink 3s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Logotipo Secundário Fim */
+/* Header Fim */
+
+/* Popup Gerar Tarjeta Início */
+.popup {
+    color: #FFFFFF;
+    font-weight: 600;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 380px;
+    max-height: 90vh;
+    background-color: #87CEFA;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+#popupUpload {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+}
+
+.popup form {
+    padding-bottom: 10px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+}
+
+.popup label {
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #0000FF;
+    font-weight: 600;
+}
+
+.popup input{
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: 2px solid #0000FF;
+    border-radius: 5px;
+    color: #0000FF;
+}
+
+.popup button {
+    margin-top: 10px;
+    padding: 10px 15px;
+}
+
+.popup-content {
+    display: flex;
+    padding: 10px 15px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    justify-content: space-between;
+}
+
+.popup-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0000FF;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.popup-icon {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    margin-top: -10px;
+}
+
+.popup .close-btn {
+    font-size: 1.3rem;
+    color: #0000FF;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+}
+
+/* Botão Dentro do Popup */
+.botao-popup {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: auto;
+    padding-bottom: 10px;
+}
+
+.botao-popup button {
+    background-color: #0000FF;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, color 0.3s;
+    width: 120px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #1E90FF;
+    color: #0000FF;
+}
+
+/* Formulário Gerar Tarjeta */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 620px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: #0000FF;
+}
+
+.milhao-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.milhao-prefixo {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #0000FF;
+    margin-right: 0.3rem;
+}
+
+.milhao-input {
+    width: 70px;
+    padding: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+        /* Tarjeta */
+.tarjeta {
+  display: none;
+  width: 320px;
+  height: 57px;
+  background-color: #000080;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.tarjeta:hover {
+  transform: scale(1.05);
+}
+
+.tarjeta-esquerda {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.milhao {
+  color: #FFFFFF;
+  font-size: 22px;
+}
+
+.tarjeta-label,
+.tarjeta-milhao {
+  line-height: 1.2;
+}
+
+.tarjeta-direita {
+  width: 66.67%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tarjeta-nome {
+  text-align: center;
+}
+
+/* Popup de Erro de Milhão */
+.popup-erro {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 2000;
+    padding-top: 50px;
+}
+
+.popup-erro-conteudo {
+    background-color: #FFFFFF;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.popup-erro-conteudo p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.popup-erro-conteudo button {
+    background-color: #2051e2;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#popupErroMilhao {
+    display: none;
+    z-index: 9999;
+}
+
+/* Popup Gerar Tarjeta Fim */
+
+/* Cabeçalho Gerar Tarjeta Início */
+.cabecalho-tarjeta p {
+    color: transparent;
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 10px;
+    -webkit-text-stroke: 2px #0000FF;
+    background: url(img/3_efeito.png);
+    background-clip: text;
+    background-position: 0 0;
+    animation: back 30s linear infinite;
+}
+
+@keyframes back {
+    100% {
+        background-position: 2000px 0;
+    }
+}
+
+/* Desfoque no texto do heading quando o menu estiver aberto */
+body.menu-open .cabecalho-tarjeta p {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+}
+/* Cabeçalho Cabeçalho Tarjeta Fim */
+
+/* Oculta Ícone para Dropdown Menu */
+.escondido {
+    display: none !important;
+}
+
+/* Tarjetas Animadas */
+#grito-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.tarjeta-generica {
+  position: fixed;
+  background-color: #000080;
+  color: #FFFFFF;
+  font-size: 1rem;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  max-width: 350px;
+  white-space: normal;
+  opacity: 1;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
+  z-index: 9999;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+ /* Container centralizado */
+  #tarjeta-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    max-width: 600px;
+    background: transparent;
+    z-index: 10000;
+    text-align: center;
+  }
+
+  .tarjeta-generica:not([data-valida="true"]) {
+  display: none !important;
+}
+
+  /* Tarjeta personalizada */
+  .tarjeta-final-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 70vw;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.tarjeta {
+  transform: scale(0.3) rotate(0deg);
+  transition: transform 0.4s ease;
+  animation: spinTarjeta 1s linear infinite;
+}
+
+@keyframes spinTarjeta {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.tarjeta-loader {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 9999;
+}
+
+.tarjeta-loader p {
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #fff;
+  border-top: 5px solid #0000FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.ver-tarjeta-container {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+.botao-download {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #0000FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.botao-download:hover {
+  background-color: #1E90FF;
+}
+
+#tarjetaFinalContainer {
+  display: none;
+}
+#tarjetaFinal {
+  display: none;
+}
+
+/* Botão Ver Tarjeta Início */
+.botao-ver-tarjeta {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #0000FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+  from { box-shadow: 0 0 5px #00f; }
+  to { box-shadow: 0 0 20px #00f, 0 0 30px #00f; }
+}
+
+.popup-tarjeta-grande {
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  margin-top: calc(100px - 5.5vh);
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 60vh;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  z-index: 9999;
+  display: none; /* será ativado via JS */
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.popup-tg-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Barra Superior do Popup tarjeta Grande */
+.popup-tg-header {
+  flex: 0 0 auto;
+  background-color: #0033aa;
+  color: white;
+  padding: 10px 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.botao-fechar-popup {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.popup-tg-body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+.tarjeta-grande {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+  animation: none !important;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+
+#tarjetaExpandida {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: auto;
+}
+
+/* Barra inferior */
+.popup-tg-footer {
+  flex: 0 0 auto;
+  padding: 10px;
+  background-color: #eee;
+  text-align: center;
+}
+
+.botao-salvar-tarjeta {
+  background-color: #0033aa;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* Botão Ver Tarjeta Fim */
+
+
+/* Popup Expandido */
+.popup-expandida {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 70vw;
+  height: 50vh;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  z-index: 10000;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.popup-expandida-header {
+  background-color: #0033aa;
+  color: white;
+  padding: 10px 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-expandida-body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.tarjeta-expandida-interna {
+  width: 70%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-expandida-footer {
+  padding: 10px;
+  background-color: #eee;
+  text-align: center;
+}
+
+.botao-fechar-expandida {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: white;
+  cursor: pointer;
+}
+
+.botao-salvar-expandida {
+  background-color: #0033aa;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .smoke-text p {
+        font-size: 2.3rem;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+
+    .menu-navegacao,
+    .botao-header {
+        display: none !important;
+    }
+
+    /* Exibir logo principal */
+    .logo-principal {
+        display: flex !important;
+        align-items: center;
+        margin-left: 2rem;
+        /* Espaçamento à esquerda */
+    }
+
+    .logo-principal img {
+        max-height: 90px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        margin-left: 5rem;
+    }
+
+    /* Exibir ícone bars centralizado */
+    .menu-dropdown {
+        display: flex !important;
+        align-items: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        color: #FFFFFF;
+        z-index: 10;
+    }
+
+    /* Exibir logo secundária */
+    .logo-secundario {
+        display: flex !important;
+        align-items: center;
+        margin-right: 2rem;
+        /* Espaçamento à direita */
+    }
+
+    .logo-secundario img {
+        display: block;
+        max-height: 70px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        animation: blink 3s infinite;
+        margin-right: 5rem;
+    }
+
+    .popup-content {
+    max-height: 90vh;
+    padding: 10px;
+  }
+
+  .popup-content img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 5px;
+  }
+
+  .popup-content form label,
+  .popup-content form input,
+  .popup-content form select {
+    font-size: 0.95rem;
+    padding: 6px 8px;
+    margin-bottom: 0;
+  }
+
+  .popup-title {
+    margin-top: 0;
+  }
+
+  .botao-popup {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .botao-popup button {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+
+  .cabecalho-tarjeta p {
+    font-size: 1.5rem;
+  }
+        }
+        
+        @media (max-width: 576px) {
+            .smoke-text p {
+        font-size: 2.2rem;
+    }
+
+    .header {
+        padding: 0 1rem;
+        /* Reduz o espaçamento horizontal */
+    }
+
+    .menu-navegacao,
+    .botao-header {
+        display: none !important;
+    }
+
+    /* Exibir logo principal */
+    .logo-principal {
+        display: flex !important;
+        align-items: center;
+        margin-left: 2rem;
+        /* Espaçamento à esquerda */
+    }
+
+    .logo-principal img {
+        max-height: 70px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        margin-left: 5px;
+    }
+
+    /* Exibir ícone bars centralizado */
+    .menu-dropdown {
+        display: flex !important;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5;
+        color: #FFFFFF;
+        z-index: 10;
+    }
+
+    .dropdown-menu {
+        width: 90vw;
+        /* 90% da largura da viewport */
+        max-width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .dropdown-menu .dropdown-action-btn {
+        width: 80%;
+        max-width: 250px;
+        margin: 0 auto;
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* Exibir logo secundária */
+    .logo-secundario {
+        display: flex !important;
+        align-items: center;
+        margin-right: 2rem;
+        /* Espaçamento à direita */
+    }
+
+    .logo-secundario img {
+        display: block;
+        max-height: 70px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        animation: blink 3s infinite;
+        margin-right: 5px;
+    }
+
+    .popup-content {
+    max-height: 88vh;
+    padding: 16px;
+  }
+
+  .popup-content img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 12px;
+  }
+
+  .popup-icon {
+    display: none;
+  }
+
+  .popup-content form label,
+  .popup-content form input,
+  .popup-content form select {
+    font-size: 0.9rem;
+    padding: 5px 8px;
+    margin-bottom: 0;
+  }
+
+  .botao-popup {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .botao-popup button {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+
+  .cabecalho-tarjeta p {
+    font-size: 1.15rem;
+  }           
+        }
+
+        @media (max-width: 430px) {
+            .smoke-text p {
+        font-size: 1.3rem;
+    }
+
+    .header {
+        padding: 0 1rem;
+    }
+
+    .menu-navegacao,
+    .botao-header {
+        display: none !important;
+    }
+
+    /* Exibir logo principal */
+    .logo-principal {
+        display: flex !important;
+        align-items: center;
+        margin-left: 2rem;
+        /* Espaçamento à esquerda */
+    }
+
+    .logo-principal img {
+        max-height: 60px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        margin-left: 0;
+    }
+
+    /* Exibir ícone bars centralizado */
+    .menu-dropdown {
+        display: flex !important;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5rem;
+        color: #FFFFFF;
+        z-index: 10;
+    }
+
+    .dropdown-menu {
+        width: 100vw;
+        height: auto;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 1rem;
+    }
+
+    .dropdown-menu .dropdown-action-btn {
+        width: 70%;
+        max-width: 220px;
+        margin: 0 auto;
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* Exibir logo secundária */
+    .logo-secundario {
+        display: flex !important;
+        align-items: center;
+        margin-right: 2rem;
+        /* Espaçamento à direita */
+    }
+
+    .logo-secundario img {
+        display: block;
+        max-height: 60px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        animation: blink 3s infinite;
+        margin-right: 0;
+    }
+
+    .cabecalho-tarjeta p {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+        }
+    
+    @media (max-width: 360px) {
+    .smoke-text p {
+        font-size: 1rem;
+    }
+
+    .header {
+        padding: 0 0.5rem;
+    }
+
+    .menu-navegacao,
+    .botao-header {
+        display: none !important;
+    }
+
+    /* Exibir logo principal */
+    .logo-principal {
+        display: flex !important;
+        align-items: center;
+        margin-left: 2rem;
+        /* Espaçamento à esquerda */
+    }
+
+    .logo-principal img {
+        max-height: 60px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        margin-left: 0;
+    }
+
+    /* Exibir ícone bars centralizado */
+    .menu-dropdown {
+        display: flex !important;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.2rem;
+        color: #FFFFFF;
+        z-index: 10;
+    }
+
+    .dropdown-menu {
+        width: 100vw;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .dropdown-menu .dropdown-action-btn {
+        width: 60%;
+        max-width: 200px;
+        margin: 0 auto;
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* Exibir logo secundária */
+    .logo-secundario {
+        display: flex !important;
+        align-items: center;
+        margin-right: 2rem;
+        /* Espaçamento à direita */
+    }
+
+    .logo-secundario img {
+        display: block;
+        max-height: 50px;
+        /* Ajuste conforme necessário */
+        width: auto;
+        animation: blink 3s infinite;
+        margin-right: 0;
+    }
+
+    .popup {
+        width: 350px;
+        height: 95vh;
+        max-width: 95vw;
+        padding: 8px;
+    }
+
+    .popup-content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .popup-content label,
+  .popup-content input,
+  .popup-content textarea {
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
+  .botao-popup {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .botao-popup button {
+    padding: 6px 8px;
+    font-size: 13px;
+    flex: 1 1 auto;
+    min-width: 100px;
+  }
+
+  .milhao-input-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    width: 7rem;
+    margin: 0;
+  }
+
+  .milhao-input-wrapper input {
+    width: 100%;
+  }
+
+  .milhao-input {
+    height: 26px;
+    font-size: 13px;
+  }
+
+  .cabecalho-tarjeta p {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="bars">
+            <div class="bar bar-left"></div>
+            <div class="bar bar-right"></div>
+            <div class="smoke-text">
+                <p>Gerador de Tarjetas</p>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Fim -->
+
+    <!-- Início do Header -->
+    <header>
+        <!-- Logotipo Principal -->
+        <div class="logo-principal">
+            <img src="img/2_logo.gif" alt="1º Logotipo da Turma">
+        </div>
+
+        <!-- Menu de Navegação -->
+        <nav>
+            <ul class="menu-navegacao">
+                <li><a href="../../index.html"><i class="fa-solid fa-home"></i><span>Home</span></a></li>
+                <li><a href="../../assets/html/sobre.html"><i class="fa-solid fa-users"></i><span>Sobre</span></a></li>
+                <li><a href="../../assets/html/videos.html"><i class="fa-solid fa-video"></i><span>Vídeos</span></a></li>
+                <li><a href="../../assets/html/comentarios.html"><i class="fa-solid fa-id-badge"></i><span>Tarjetas</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-dove"></i><span>Homenagens</span></a></li>
+            </ul>
+        </nav>
+
+        <!-- Ícone Bars -->
+        <div class="menu-dropdown">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu">
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../assets/html/sobre.html">Sobre</a></li>
+                <li><a href="../../assets/html/videos.html">Vídeos</a></li>
+                <li><a href="../../assets/html/comentarios.html">Tarjeta</a></li>
+                <li><a href="#">Homenagens</a></li>
+            </ul>
+
+            <!-- Botão dentro do Dropdown Menu -->
+            <button class="dropdown-action-btn botao-gerar">Gerar Tarjeta</button>
+        </div>
+
+        <!-- Botao -->
+        <div id="btnGerarTarjeta" class="botao-header">
+            <button class="botao-gerar">Gerar Tarjeta</button>
+        </div>
+
+        <!-- Logotipo Secundário -->
+        <div class="logo-secundario">
+            <img src="img/4_logo.png" alt="2º Logotipo da Turma">
+        </div>
+    </header>
+    <!-- Fim do Header -->
+
+    <!-- Cabeçalho Início -->
+    <div class="cabecalho-tarjeta">
+        <p>A tarjeta simboliza o início de um sonho. E o coração pulsa forte com o orgulho de ter uma da Gloriosa Azul 91 no peito.</p>
+    </div>
+    <!-- cabeçalho Fim -->
+
+    <!-- Popup Gerar Tarjeta Início -->
+    <div id="popupUpload" class="popup">
+        <div class="popup-content">
+            <h2 class="popup-title">Gerar Tarjeta</h2>
+            <img src="img/6_tarjetaGenerica.png" alt="Modelo Tarjeta de Aluno" class="popup-icon">
+            <span class="close-btn" onclick="closePopup()" aria-label="Fechar Popup Gerar Tarjeta">&times;</span>
+
+            <!-- Formulário de Upload -->
+            <form id="uploadForm" action="#" method="post" enctype="multipart/form-data">
+                <!-- Campos do Formulário -->
+                <label for="milhao">Milhão:</label>
+                <div class="milhao-input-wrapper">
+                    <span class="milhao-prefixo">91-</span>
+                    <input type="text" id="milhao" maxlength="4" pattern="\d{4}" name="milhao" class="milhao-input" placeholder="" required>
+                </div>
+
+                <!-- Nome de Guerra -->
+                <label for="nomeGuerra">Nome de Guerra:</label>
+                <input type="text" id="nomeGuerra" name="nomeGuerra" required maxlength="50" placeholder="Digite seu Nome de Guerra" />
+
+                <!-- Botões -->
+                <div class="botao-popup">
+                    <button type="submit">Gerar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Popup Erro de Milhão -->
+    <div id="popupErroMilhao" class="popup-erro">
+        <div class="popup-erro-conteudo">
+            <p>Dado Incorreto!</p>
+            <button id="botaoOkErro">Ok</button>
+        </div>
+    </div>
+
+<!-- Tarjeta Genérica --> 
+<div class="tarjeta-generica">
+    <!-- Tarjeta -->
+    <div class="tarjeta">
+        <div class="tarjeta-esquerda">
+            <div class="tarjeta-label">ALUNO</div>
+            <div class="tarjeta-milhao">00-0000</div>
+        </div>
+
+        <div class="tarjeta-direita">
+            <div class="tarjeta-nome">AZUL 91</div>
+        </div>
+    </div>
+</div>
+
+<!-- Container para as tarjetas do grito -->
+<div id="grito-container"></div>
+
+
+<!-- Container da Tarjeta Final Início -->
+ <div id="tarjetaFinalContainer" class="tarjeta-final-container">
+  <div id="tarjetaFinal" class="tarjeta">
+    <div class="tarjeta-esquerda">
+      <div class="tarjeta-label">ALUNO</div>
+      <div class="tarjeta-milhao" id="finalMilhao"></div>
+    </div>
+    <div class="tarjeta-direita">
+      <div class="tarjeta-nome" id="finalNome"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Loader e Mensagem -->
+<div id="tarjetaLoader" class="tarjeta-loader">
+  <div class="loader"></div>
+  <p>Gerando Tarjeta. Aguarde...</p>
+</div>
+<!-- Container da Tarjeta Final Fim -->
+
+<!-- Botão Ver Tarjeta Início -->
+<div id="btnVerTarjetaContainer" class="ver-tarjeta-container">
+  <button id="btnVerTarjeta" class="botao-ver-tarjeta">Ver Tarjeta</button>
+</div>
+
+<!-- Popup Tarjeta Grande -->
+<div id="popupTarjetaGrande" class="popup-tarjeta-grande">
+  <div class="popup-tg-content">
+    <div class="popup-tg-header">
+      <span id="tituloPopupTarjeta">Tarjeta de NOME</span>
+      <button id="btnFecharPopupTarjeta" class="botao-fechar-popup"></button>
+    </div>
+    <div class="popup-tg-body">
+      <div id="tarjetaExpandida" class="tarjeta tarjeta-grande">
+        <!-- Tarjeta gerada será clonada e colocada aqui -->
+      </div>
+      <button id="btnSalvarTarjeta" class="botao-salvar-tarjeta">Salvar Tarjeta</button>
+    </div>
+  </div>
+</div>
+<!-- Botão Ver Tarjeta Fim -->
+
+<!-- Popup Tarjeta Expandida -->
+<div id="popupTarjetaExpandida" class="popup-expandida">
+  <div class="popup-expandida-header">
+    <span id="tituloExpandido">Tarjeta de NOME</span>
+    <button id="fecharExpandida" class="botao-fechar-expandida" aria-label="Fechar Popup Tarjeta Expandida">&times;</button>
+  </div>
+  <div class="popup-expandida-body">
+    <div id="areaTarjetaExpandida" class="tarjeta-expandida-interna"></div>
+  </div>
+  <div class="popup-expandida-footer">
+    <button id="btnSalvarExpandida" class="botao-salvar-expandida">Salvar Tarjeta</button>
+  </div>
+</div>
+
+<!-- Biblioteca html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+   // Preloader Início
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('preloader').style.opacity = '0';
+        document.getElementById('preloader').style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+            document.getElementById('preloader').style.display = 'none';
+        }, 500);
+    }, 5000);
+});
+// Preloader Fim
+
+// Tarjetas Animadas Início
+setTimeout(() => {
+    const container = document.getElementById('grito-container');
+    if (!container) return;
+
+    const frases = [
+        "Na força do combate",
+        "no sangue do inimigo",
+        "a Azul não se abate",
+        "e não foge do perigo",
+        "nossa força vem do céu",
+        "e do homem interior",
+        "Especialistas nós seremos",
+        "pois conhecemos seu valor",
+        "Azul 91"
+    ];
+
+    const cabecalho = document.querySelector('.cabecalho-tarjeta');
+    const cabecalhoHeight = cabecalho ? cabecalho.getBoundingClientRect().bottom : 0;
+    const minDistance = 60;
+
+    let tarjetasAtivas = [];
+
+    function colide(pos1, pos2) {
+    return !(
+        pos1.left + pos1.width + minDistance < pos2.left - minDistance ||
+        pos1.left - minDistance > pos2.left + pos2.width + minDistance ||
+        pos1.top + pos1.height + minDistance < pos2.top - minDistance ||
+        pos1.top - minDistance > pos2.top + pos2.height + minDistance
+    );
+}
+
+    function gerarPosicao(tarjetaWidth, tarjetaHeight) {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const maxAttempts = 20;
+
+        for (let i = 0; i < maxAttempts; i++) {
+            const left = Math.random() * (vw - tarjetaWidth);
+            const top = Math.random() * (vh - cabecalhoHeight - tarjetaHeight) + cabecalhoHeight;
+
+            const novaPos = { left, top, width: tarjetaWidth, height: tarjetaHeight };
+
+            if (!tarjetasAtivas.some(pos => colide(novaPos, pos))) {
+                return novaPos;
+            }
+        }
+
+        // fallback
+        return {
+            left: Math.random() * (vw - tarjetaWidth),
+            top: Math.random() * (vh - cabecalhoHeight - tarjetaHeight) + cabecalhoHeight,
+            width: tarjetaWidth,
+            height: tarjetaHeight
+        };
+    }
+
+    const intervaloEntreTarjetas = 800;
+
+    // Remove tarjetas vazias (fantasmas) antes de começar
+    const tarjetasFantasmas = document.querySelectorAll('.tarjeta-generica');
+    tarjetasFantasmas.forEach(t => {
+        if (!t.textContent.trim()) {
+            t.remove();
+        }
+    });
+
+    function exibirTarjetasLoop() {
+        tarjetasAtivas = [];
+
+        frases.forEach((texto, index) => {
+            setTimeout(() => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'tarjeta-generica';
+                tarjeta.setAttribute('data-valida', 'true');
+                tarjeta.textContent = texto;
+                tarjeta.style.opacity = '0'; // Evita piscar antes da posição
+
+                container.appendChild(tarjeta);
+
+                // Espera renderizar para medir e posicionar
+                requestAnimationFrame(() => {
+                    const rect = tarjeta.getBoundingClientRect();
+                    const pos = gerarPosicao(rect.width, rect.height);
+
+                    tarjeta.style.top = `${pos.top}px`;
+                    tarjeta.style.left = `${pos.left}px`;
+                    tarjeta.style.opacity = '1';
+
+                    tarjetasAtivas.push(pos);
+                });
+
+                setTimeout(() => tarjeta.remove(), 5000);
+            }, index * intervaloEntreTarjetas);
+        });
+
+        const tempoTotal = (frases.length - 1) * intervaloEntreTarjetas + 5000;
+        setTimeout(exibirTarjetasLoop, tempoTotal);
+    }
+
+    exibirTarjetasLoop();
+}, 5500);
+// Tarjetas Animadas Fim
+
+// Dropdown Menu Início
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleIcon = document.querySelector('.menu-dropdown i');
+    const dropdown = document.querySelector('.dropdown-menu');
+
+    toggleIcon.addEventListener('click', () => {
+        const isOpen = getComputedStyle(dropdown).display === 'block';
+        if (!isOpen) {
+            dropdown.style.display = 'block';
+            toggleIcon.classList.replace('fa-bars', 'fa-xmark');
+            document.body.classList.add('menu-open'); // ADICIONADO
+        } else {
+            dropdown.style.display = 'none';
+            toggleIcon.classList.replace('fa-xmark', 'fa-bars');
+            document.body.classList.remove('menu-open'); // ADICIONADO
+        }
+    });
+
+    // Fecha ao clicar fora
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target) && !toggleIcon.contains(e.target)) {
+            dropdown.style.display = 'none';
+            toggleIcon.classList.replace('fa-xmark', 'fa-bars');
+            document.body.classList.remove('menu-open'); // ADICIONADO
+        }
+
+        // Fechar o Dropdown Menu
+function fecharPopup() {
+    document.getElementById('popup').style.display = "none";
+
+    // Fechar o Dropdown Menu, se estiver visível
+    const dropdown = document.getElementById('dropdown-menu');
+    if (dropdown && window.innerWidth <= 1024) {
+        dropdown.classList.remove('active');
+    }
+}
+
+        // Fechar Dropdown Menu e Ícones Bars e XMark
+        const dropdown = document.querySelector('.dropdown-menu');
+        const toggleIcon = document.querySelector('.menu-dropdown i');
+        const menuDropdown = document.querySelector('.menu-dropdown');
+
+        if (window.innerWidth <= 1024 && dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+            toggleIcon.classList.replace('fa-xmark', 'fa-bars');
+            menuDropdown.classList.add('escondido');
+        }
+        
+    });
+});
+// Dropdown Menu Fim
+
+// Popup Gerar Tarjeta Início
+// Abrir o popup quando clicar no botão "Gerar Tarjeta"
+document.querySelectorAll('.botao-gerar').forEach(botao => {
+    botao.addEventListener('click', function () {
+        // Limpar os Campos do Formulário
+        uploadForm.reset();
+
+        // Exibir o popup
+        document.getElementById('popupUpload').style.display = 'flex';        
+    });
+});
+
+// Função para abrir o popup
+function abrirPopup() {
+    // Limpar os campos do formulário
+    uploadForm.reset();
+
+    // Exibir o popup
+    document.getElementById('popupUpload').style.display = 'flex';
+}
+
+
+
+// Validação do Milhão
+const uploadForm = document.getElementById('uploadForm');
+const milhaoInput = document.getElementById('milhao');
+const popupErroMilhao = document.getElementById('popupErroMilhao');
+
+// Impede a rolagem ou teclas de setas no campo Milhão
+milhaoInput.addEventListener('wheel', e => e.preventDefault());
+milhaoInput.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        e.preventDefault();
+    }
+});
+
+// Validação do Milhão ao pressionar ENTER ou TAB
+milhaoInput.addEventListener('keydown', function (e) {
+    const milhao = parseInt(milhaoInput.value, 10);
+
+    if (
+        (e.key === 'Enter' || e.key === 'Tab') &&
+        (isNaN(milhao) || milhao < 1001 || milhao > 1492 || milhaoInput.value.length !== 4)
+    ) {
+        e.preventDefault(); // Impede que o foco vá para o próximo campo
+
+        // Exibe o popup de erro
+        popupErroMilhao.style.display = 'flex';
+    }
+});
+
+// Adicionando validação também para quando o campo perde o foco (evento blur)
+milhaoInput.addEventListener('blur', function () {
+    const milhao = parseInt(milhaoInput.value, 10);
+
+    if (isNaN(milhao) || milhao < 1001 || milhao > 1492 || milhaoInput.value.length !== 4) {
+        // Exibe o popup de erro
+        popupErroMilhao.style.display = 'flex';
+    }
+});
+
+// Evento de envio do formulário
+uploadForm.addEventListener('submit', function (e) {
+    const milhao = parseInt(milhaoInput.value, 10);
+
+    if (
+        isNaN(milhao) ||
+        milhao < 1001 ||
+        milhao > 1492 ||
+        milhaoInput.value.length !== 4
+    ) {
+        e.preventDefault(); // Impede envio do formulário
+        popupErroMilhao.style.display = 'flex';
+    }
+});
+
+// Fechar Popup Gerar Tarjeta
+function closePopup() {
+    document.getElementById('popupUpload').style.display = 'none';
+
+    // Reexibir Ícone Bars ao fechar Popup Gerar Tarjeta
+    const menuDropdown = document.querySelector('.menu-dropdown');
+    const toggleIcon = document.querySelector('.menu-dropdown i');
+
+    menuDropdown.classList.remove('escondido');
+    toggleIcon.classList.remove('fa-xmark');
+    toggleIcon.classList.add('fa-bars');
+}
+
+// Botão "Ok" do erro de Milhão
+document.getElementById('botaoOkErro').addEventListener('click', function () {
+    popupErroMilhao.style.display = 'none';
+    closePopup(); // Fecha o popup de adicionar foto
+});
+
+
+// Tarjeta Personalizada Início
+document.getElementById("uploadForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const milhaoVal = document.getElementById("milhao").value;
+  const nomeVal = document.getElementById("nomeGuerra").value.trim().toUpperCase();
+
+  if (!/^\d{4}$/.test(milhaoVal) || parseInt(milhaoVal) < 1001 || parseInt(milhaoVal) > 1492 || nomeVal === "") {
+    document.getElementById("popupErroMilhao").style.display = 'flex';
+    return;
+  }
+
+  // Referências
+  const tarjeta = document.getElementById("tarjetaFinal");
+  const finalMilhao = document.getElementById("finalMilhao");
+  const finalNome = document.getElementById("finalNome");
+  const container = document.getElementById("tarjetaFinalContainer");
+  const loader = document.getElementById("tarjetaLoader");
+  const btnVerTarjetaContainer = document.getElementById("btnVerTarjetaContainer");
+
+  // Reset
+  container.style.display = "none";
+  tarjeta.style.display = "none";
+  tarjeta.style.transform = "scale(1)";
+  tarjeta.style.animation = "none";
+  finalMilhao.textContent = "";
+  finalNome.textContent = "";
+  loader.style.display = "none";
+  btnVerTarjetaContainer.style.display = "none";
+
+  // Fecha popup de formulário
+  document.getElementById("popupUpload").style.display = "none";
+
+  // Oculta tarjeta existente (em caso de edição)
+  container.style.display = "flex";
+  tarjeta.style.display = "flex";
+  tarjeta.style.animation = "spinTarjeta 1s linear infinite";
+
+  const fullMilhao = `91-${milhaoVal}`;
+  const fullNome = nomeVal;
+  const totalCaracteres = fullMilhao.length + fullNome.length;
+
+  const tempoPorCaractere = 400;
+  let tempoTotal = totalCaracteres * tempoPorCaractere;
+  tempoTotal = Math.max(6000, Math.min(tempoTotal, 12000));
+  const intervalo = Math.floor(tempoTotal / totalCaracteres);
+
+  let step = 0;
+  let scaleAtual = 1;
+  const scaleFinal = 1;
+  const scaleIncremento = (scaleFinal - scaleAtual) / totalCaracteres;
+
+  loader.style.display = "block";
+
+  const digita = setInterval(() => {
+    if (step < fullMilhao.length) {
+      finalMilhao.textContent += fullMilhao[step];
+    } else if (step < fullMilhao.length + fullNome.length) {
+      finalNome.textContent += fullNome[step - fullMilhao.length];
+    }
+
+    // Mantém escala fixa (1) durante animação
+    tarjeta.style.transform = `scale(1) rotate(${step * 20}deg)`;
+
+    if (step >= totalCaracteres) {
+      clearInterval(digita);
+      tarjeta.style.animation = "none";
+      tarjeta.style.transform = "scale(1)";
+      loader.style.display = "none";
+      btnVerTarjetaContainer.style.display = "block";
+    }
+
+    step++;
+  }, intervalo);
+});
+
+// Salvar tarjeta como PNG
+document.getElementById("btnSalvarTarjeta").addEventListener("click", () => {
+  const tarjeta = document.querySelector("#tarjetaExpandida .tarjeta");
+
+  html2canvas(tarjeta).then(canvas => {
+    const link = document.createElement('a');
+    const nome = document.getElementById("finalMilhao").textContent.replace("91-", "");
+    link.download = `tarjeta-${nome}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+
+    fecharPopupTarjeta();
+  });
+});
+
+// Botão de fechar popup Tarjeta Grande
+document.getElementById("btnFecharPopupTarjeta").addEventListener("click", () => {
+  fecharPopupTarjeta();
+});
+
+// Função para fechar popup Tarjeta Grande e limpar conteúdo
+function fecharPopupTarjeta() {
+  const popup = document.getElementById("popupTarjetaGrande");
+  const containerDestino = document.getElementById("tarjetaExpandida");
+
+  popup.style.display = "none";
+  containerDestino.innerHTML = "";
+
+  // Reexibe a tarjeta pequena (caso queira gerar uma nova)
+  document.getElementById("tarjetaFinalContainer").style.display = "flex";
+}
+
+// Esta função deve ser chamada quando uma nova tarjeta for construída
+function mostrarBotaoVerTarjeta() {
+  document.getElementById("btnVerTarjetaContainer").style.display = "block";
+}
+// Tarjeta Personalizada Fim
+
+
+// Abrir Tarjeta Expandida
+document.getElementById("btnVerTarjeta").addEventListener("click", () => {
+  const popup = document.getElementById("popupTarjetaExpandida");
+  const nome = document.getElementById("finalNome").textContent || "NOME";
+  const titulo = document.getElementById("tituloExpandido");
+  const destino = document.getElementById("areaTarjetaExpandida");
+  const original = document.getElementById("tarjetaFinal");
+
+  titulo.textContent = `Tarjeta de ${nome}`;
+  destino.innerHTML = "";
+
+  const clone = original.cloneNode(true);
+  clone.removeAttribute("id");
+  clone.style.display = "flex";
+  clone.style.transform = "scale(1)";
+  destino.appendChild(clone);
+
+  popup.style.display = "flex";
+
+  // Oculta a tarjeta pequena
+  document.getElementById("tarjetaFinalContainer").style.display = "none";
+});
+
+// Fechar popup ao clicar no botão de fechar
+document.getElementById("fecharExpandida").addEventListener("click", () => {
+  fecharPopupExpandida();
+});
+
+// Salvar tarjeta expandida
+document.getElementById("btnSalvarExpandida").addEventListener("click", () => {
+  const tarjeta = document.querySelector("#areaTarjetaExpandida .tarjeta");
+  html2canvas(tarjeta).then(canvas => {
+    const link = document.createElement('a');
+    const nome = document.getElementById("finalMilhao").textContent.replace("91-", "");
+    link.download = `tarjeta-${nome}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+    fecharPopupExpandida();
+  });
+});
+
+function fecharPopupExpandida() {
+  document.getElementById("popupTarjetaExpandida").style.display = "none";
+  document.getElementById("areaTarjetaExpandida").innerHTML = "";
+}
+</script>
+</body>
+</html>
