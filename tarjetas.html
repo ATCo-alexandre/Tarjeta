@@ -1613,23 +1613,23 @@ setTimeout(() => {
 
     const cabecalho = document.querySelector('.cabecalho-tarjeta');
     const cabecalhoHeight = cabecalho ? cabecalho.getBoundingClientRect().bottom : 0;
-    const minDistance = 60;
+    const minDistance = 80;
 
     let tarjetasAtivas = [];
 
     function colide(pos1, pos2) {
     return !(
-        pos1.left + pos1.width + minDistance < pos2.left - minDistance ||
-        pos1.left - minDistance > pos2.left + pos2.width + minDistance ||
-        pos1.top + pos1.height + minDistance < pos2.top - minDistance ||
-        pos1.top - minDistance > pos2.top + pos2.height + minDistance
+        pos1.left + pos1.width + minDistance < pos2.left ||
+    pos1.left > pos2.left + pos2.width + minDistance ||
+    pos1.top + pos1.height + minDistance < pos2.top ||
+    pos1.top > pos2.top + pos2.height + minDistance
     );
 }
 
     function gerarPosicao(tarjetaWidth, tarjetaHeight) {
         const vw = window.innerWidth;
         const vh = window.innerHeight;
-        const maxAttempts = 20;
+        const maxAttempts = 80;
 
         for (let i = 0; i < maxAttempts; i++) {
             const left = Math.random() * (vw - tarjetaWidth);
@@ -1643,9 +1643,12 @@ setTimeout(() => {
         }
 
         // fallback
+        const fallbackleft = Math.random() * (vw - tarjetaWidth);
+        const fallbacktop = Math.random() * (vh - cabecalhoHeight - tarjetaHeight) + cabecalhoHeight;
+
         return {
-            left: Math.random() * (vw - tarjetaWidth),
-            top: Math.random() * (vh - cabecalhoHeight - tarjetaHeight) + cabecalhoHeight,
+            left: fallbackleft,
+            top: fallbacktop,
             width: tarjetaWidth,
             height: tarjetaHeight
         };
