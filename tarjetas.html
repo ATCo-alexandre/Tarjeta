@@ -1474,7 +1474,7 @@ body.menu-open .cabecalho-tarjeta p {
             <img src="img/6_tarjetaGenerica.png" alt="Modelo Tarjeta de Aluno" class="popup-icon">
             <span class="close-btn" onclick="closePopup()" aria-label="Fechar Popup Gerar Tarjeta">&times;</span>
 
-            <!-- Formulário de Upload -->
+            <!-- Formulário Gerar Tarjeta -->
             <form id="uploadForm" action="#" method="post" enctype="multipart/form-data">
                 <!-- Campos do Formulário -->
                 <label for="milhao">Milhão:</label>
@@ -1526,7 +1526,7 @@ body.menu-open .cabecalho-tarjeta p {
  <div id="tarjetaFinalContainer" class="tarjeta-final-container">
   <div id="tarjetaFinal" class="tarjeta">
     <div class="tarjeta-esquerda">
-      <div class="tarjeta-label">ALUNO</div>
+      <div class="tarjeta-label" id="finalAluno"></div>
       <div class="tarjeta-milhao" id="finalMilhao"></div>
     </div>
     <div class="tarjeta-direita">
@@ -1857,6 +1857,7 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
 
   // Referências
   const tarjeta = document.getElementById("tarjetaFinal");
+  const finalAluno = document.getElementById("finalAluno");
   const finalMilhao = document.getElementById("finalMilhao");
   const finalNome = document.getElementById("finalNome");
   const container = document.getElementById("tarjetaFinalContainer");
@@ -1864,12 +1865,13 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
   const btnVerTarjetaContainer = document.getElementById("btnVerTarjetaContainer");
 
   // Reset
+  finalAluno.textContent = "";
+  finalMilhao.textContent = "";
+  finalNome.textContent = "";
   container.style.display = "none";
   tarjeta.style.display = "none";
   tarjeta.style.transform = "scale(1)";
   tarjeta.style.animation = "none";
-  finalMilhao.textContent = "";
-  finalNome.textContent = "";
   loader.style.display = "none";
   btnVerTarjetaContainer.style.display = "none";
 
@@ -1879,45 +1881,76 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
   // Oculta tarjeta existente (em caso de edição)
   container.style.display = "flex";
   tarjeta.style.display = "flex";
-  tarjeta.style.animation = "spinTarjeta 1s linear infinite";
+  tarjeta.style.animation = "spinTarjeta 3s linear infinite";
 
+  // Dados da tarjeta
+  const textoAluno = "ALUNO";
   const fullMilhao = `91-${milhaoVal}`;
   const fullNome = nomeVal;
-  const totalCaracteres = fullMilhao.length + fullNome.length;
+  const totalCaracteres = textoAluno.length + fullMilhao.length + fullNome.length;
 
   const tempoPorCaractere = 400;
   let tempoTotal = totalCaracteres * tempoPorCaractere;
   tempoTotal = Math.max(6000, Math.min(tempoTotal, 12000));
-  const intervalo = Math.floor(tempoTotal / totalCaracteres);
-
+  
   let step = 0;
-  let scaleAtual = 1;
-  const scaleFinal = 1;
-  const scaleIncremento = (scaleFinal - scaleAtual) / totalCaracteres;
+  let ultimoTimestamp = null;
 
   loader.style.display = "block";
 
-  const digita = setInterval(() => {
-    if (step < fullMilhao.length) {
-      finalMilhao.textContent += fullMilhao[step];
-    } else if (step < fullMilhao.length + fullNome.length) {
-      finalNome.textContent += fullNome[step - fullMilhao.length];
+  function animar(timestamp) {
+    if (!ultimoTimestamp) ultimoTimestamp = timestamp;
+    const delta = timestamp - ultimoTimestamp;
+
+    if (delta >= tempoPorCaractere && step < totalCaracteres) {
+      if (step < textoAluno.length) {
+        finalAluno.textContent += textoAluno[step];
+      } else if (step < textoAluno.length + fullMilhao.length) {
+        finalMilhao.textContent += fullMilhao[step - textoAluno.length];
+      } else {
+        finalNome.textContent += fullNome[step - textoAluno.length - fullMilhao.length];
+      }
+
+      tarjeta.style.transform = `scale(1) rotate(${step * 20}deg)`;
+      step++;
+      ultimoTimestamp = timestamp;
     }
 
-    // Mantém escala fixa (1) durante animação
-    tarjeta.style.transform = `scale(1) rotate(${step * 20}deg)`;
-
-    if (step >= totalCaracteres) {
-      clearInterval(digita);
+    if (step < totalCaracteres) {
+      requestAnimationFrame(animar);
+    } else {
       tarjeta.style.animation = "none";
       tarjeta.style.transform = "scale(1)";
       loader.style.display = "none";
       btnVerTarjetaContainer.style.display = "block";
     }
+  }
 
-    step++;
-  }, intervalo);
+  // Início da animação
+  requestAnimationFrame(animar);
 });
+
+function esconderTarjeta() {
+  const tarjeta = document.getElementById("tarjetaFinal");
+  const container = document.getElementById("tarjetaFinalContainer");
+  const btnVerTarjetaContainer = document.getElementById("btnVerTarjetaContainer");
+
+  tarjeta.style.display = "none";
+  container.style.display = "none";
+  tarjeta.style.animation = "none";
+  btnVerTarjetaContainer.style.display = "none";
+}
+
+// Adiciona evento para esconder a tarjeta ao clicar nos botões "Gerar Tarjeta"
+document.querySelectorAll(".botao-gerar").forEach(botao => {
+  botao.addEventListener("click", esconderTarjeta);
+});
+
+document.getElementById("btnVerTarjeta").addEventListener("click", esconderTarjeta);
+document.querySelectorAll(".botao-gerar").forEach(botao => {
+  botao.addEventListener("click", esconderTarjeta);
+});
+
 
 // Salvar tarjeta como PNG
 document.getElementById("btnSalvarTarjeta").addEventListener("click", () => {
