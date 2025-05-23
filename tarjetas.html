@@ -223,7 +223,7 @@ header {
 
 /* Ícone Bars */
 .menu-dropdown {
-    display: block !important;
+    display: none;
     position: absolute;
     z-index: 9999;
     top: 50%;
@@ -1714,8 +1714,8 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log("Script do dropdown carregado");
 
   function fecharDropdown() {
-    if (menuDropdown.classList.contains('show')) {
-      menuDropdown.classList.remove('show');
+    if (dropdownMenu.classList.contains('active')) {
+      dropdownMenu.classList.remove('active');
       toggleIcon.classList.remove('active');
     }
   }
