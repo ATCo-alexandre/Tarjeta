@@ -223,14 +223,15 @@ header {
 
 /* Ícone Bars */
 .menu-dropdown {
-    display: none;
+    display: block !important;
     position: absolute;
-    z-index: 1001;
+    z-index: 9999;
     top: 50%;
     left: 50%;
     font-size: 2rem;
     color: #FFFFFF;
     transform: translateX(-50%);
+    cursor: pointer;
 }
 
 /* Dropdown Menu */
@@ -242,13 +243,18 @@ header {
     right: 50%;
     width: 30vw;
     height: 40vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6));
+    background: rgba(0, 0, 0, 0.3);
     transform: translateX(-50%);
+    border: 2px solid #0000FF;
     border-radius: 0.5rem;
     padding: 1rem;
     z-index: 1000;
     overflow-y: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu.active {
+  display: block;
 }
 
 .dropdown-menu ul {
@@ -1693,54 +1699,48 @@ setTimeout(() => {
 // Tarjetas Animadas Fim
 
 // Dropdown Menu Início
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleIcon = document.querySelector('.menu-dropdown i');
-    const dropdown = document.querySelector('.dropdown-menu');
+document.addEventListener('DOMContentLoaded', function () {
+  const dropdown = document.querySelector('.dropdown');
+  const toggleIcon = document.querySelector('.menu-dropdown');
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+  const botoesGerar = document.querySelectorAll('.botao-gerar');
 
-    toggleIcon.addEventListener('click', () => {
-        const isOpen = getComputedStyle(dropdown).display === 'block';
-        if (!isOpen) {
-            dropdown.style.display = 'block';
-            toggleIcon.classList.replace('fa-bars', 'fa-xmark');
-            document.body.classList.add('menu-open'); // ADICIONADO
-        } else {
-            dropdown.style.display = 'none';
-            toggleIcon.classList.replace('fa-xmark', 'fa-bars');
-            document.body.classList.remove('menu-open'); // ADICIONADO
-        }
-    });
+  // Só continua se todos os elementos essenciais existirem
+  if (!toggleIcon || !dropdownMenu) {
+    console.warn('Elementos para dropdown não encontrados.');
+    return;
+  }
 
-    // Fecha ao clicar fora
-    document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target) && !toggleIcon.contains(e.target)) {
-            dropdown.style.display = 'none';
-            toggleIcon.classList.replace('fa-xmark', 'fa-bars');
-            document.body.classList.remove('menu-open'); // ADICIONADO
-        }
+  console.log("Script do dropdown carregado");
 
-        // Fechar o Dropdown Menu
-function fecharPopup() {
-    document.getElementById('popup').style.display = "none";
-
-    // Fechar o Dropdown Menu, se estiver visível
-    const dropdown = document.getElementById('dropdown-menu');
-    if (dropdown && window.innerWidth <= 1024) {
-        dropdown.classList.remove('active');
+  function fecharDropdown() {
+    if (menuDropdown.classList.contains('show')) {
+      menuDropdown.classList.remove('show');
+      toggleIcon.classList.remove('active');
     }
-}
+  }
 
-        // Fechar Dropdown Menu e Ícones Bars e XMark
-        const dropdown = document.querySelector('.dropdown-menu');
-        const toggleIcon = document.querySelector('.menu-dropdown i');
-        const menuDropdown = document.querySelector('.menu-dropdown');
+  toggleIcon.addEventListener('click', function () {
+    console.log('Ícone clicado! Toggle menu');
+    dropdownMenu.classList.toggle('active');
 
-        if (window.innerWidth <= 1024 && dropdown.style.display === 'block') {
-            dropdown.style.display = 'none';
-            toggleIcon.classList.replace('fa-xmark', 'fa-bars');
-            menuDropdown.classList.add('escondido');
-        }
-        
+    // Trocar ícone
+  const icon = toggleIcon.querySelector('i');
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-xmark');
+  });
+
+  botoesGerar.forEach(botao => {
+    botao.addEventListener('click', () => {
+      dropdownMenu.classList.remove('active');
     });
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1025) {
+      fecharDropdown();
+    }
+  });
 });
 // Dropdown Menu Fim
 
