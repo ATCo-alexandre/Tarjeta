@@ -1839,6 +1839,12 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
     return;
   }
 
+  // Dados da tarjeta
+  const textoAluno = "ALUNO";
+  const fullMilhao = `91-${milhaoVal}`;
+  const fullNome = nomeVal;
+  const totalCaracteres = textoAluno.length + fullMilhao.length + fullNome.length;
+
   // Referências
   const tarjeta = document.getElementById("tarjetaFinal");
   const finalAluno = document.getElementById("finalAluno");
@@ -1867,11 +1873,7 @@ document.getElementById("uploadForm").addEventListener("submit", function(e) {
   tarjeta.style.display = "flex";
   tarjeta.style.animation = "spinTarjeta 3s linear infinite";
 
-  // Dados da tarjeta
-  const textoAluno = "ALUNO";
-  const fullMilhao = `91-${milhaoVal}`;
-  const fullNome = nomeVal;
-  const totalCaracteres = textoAluno.length + fullMilhao.length + fullNome.length;
+  
 
   const tempoPorCaractere = 400;
   let tempoTotal = totalCaracteres * tempoPorCaractere;
