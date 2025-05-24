@@ -1988,8 +1988,10 @@ document.getElementById("btnVerTarjeta").addEventListener("click", () => {
 
   const clone = original.cloneNode(true);
   clone.removeAttribute("id");
+
+// Tamanho da Tarjeta Expandida
   clone.style.display = "flex";
-  clone.style.transform = "scale(1)";
+  clone.style.transform = "scale(1.1)";
   destino.appendChild(clone);
 
   popup.style.display = "flex";
