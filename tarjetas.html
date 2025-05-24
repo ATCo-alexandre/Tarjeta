@@ -1790,31 +1790,6 @@ milhaoInput.addEventListener('keydown', function (e) {
     }
 });
 
-// Validação do Milhão ao pressionar ENTER ou TAB
-// milhaoInput.addEventListener('keydown', function (e) {
-//     const milhao = parseInt(milhaoInput.value, 10);
-
-//     if (
-//         (e.key === 'Enter' || e.key === 'Tab') &&
-//         (isNaN(milhao) || milhao < 1001 || milhao > 1492 || milhaoInput.value.length !== 4)
-//     ) {
-//         e.preventDefault(); // Impede que o foco vá para o próximo campo
-
-        // Exibe o popup de erro
-//         popupErroMilhao.style.display = 'flex';
-//     }
-// });
-
-// Adicionando validação também para quando o campo perde o foco (evento blur)
-// milhaoInput.addEventListener('blur', function () {
-//     const milhao = parseInt(milhaoInput.value, 10);
-
-//     if (isNaN(milhao) || milhao < 1001 || milhao > 1492 || milhaoInput.value.length !== 4) {
-        // Exibe o popup de erro
-//         popupErroMilhao.style.display = 'flex';
-//     }
-// });
-
 // Evento de envio do formulário
 uploadForm.addEventListener('submit', function (e) {
     const milhao = parseInt(milhaoInput.value, 10);
