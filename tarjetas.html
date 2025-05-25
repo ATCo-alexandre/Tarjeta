@@ -1793,6 +1793,7 @@ milhaoInput.addEventListener('keydown', function (e) {
 // Evento de envio do formulário
 uploadForm.addEventListener('submit', function (e) {
     const milhao = parseInt(milhaoInput.value, 10);
+     const nomeVal = document.getElementById("nomeGuerra").value.trim().toUpperCase();
 
     if (
         isNaN(milhao) ||
